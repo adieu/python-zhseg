@@ -1,0 +1,3 @@
+include setup.py MANIFEST.in 
+recursive-include zhseg/data *
+exclude zhseg/_mmseg.cpp
