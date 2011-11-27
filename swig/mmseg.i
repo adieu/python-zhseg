@@ -3,14 +3,6 @@
 #include "mmseg.h"
 %}
 
-%immutable; 
-struct Token
-{
-    const char *text;
-    int offset;
-    int length;
-};
-
 %typemap(out) Token {
     $result = PyString_FromStringAndSize($1.text, $1.length);
 }
