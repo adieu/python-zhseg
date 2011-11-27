@@ -1,15 +1,32 @@
 %module mmseg
 %{
-#include "mmseg.h"
+#include "algor.h"
 %}
 
-%typemap(out) Token {
-    $result = PyString_FromStringAndSize($1.text, $1.length);
-}
+%typemap(in) (const char *text, int length) {
+    $1 = PyString_AsString($input);
+    $2 = PyString_Size($input);
+};
 
-extern int mmseg_load_chars(const char *path);
-extern int mmseg_load_words(const char *path);
-extern void mmseg_dic_add(const char *word, int len, int freq);
-extern rmmseg::Algorithm *mmseg_algor_create(const char *text, int len);
-extern void mmseg_algor_destroy(rmmseg::Algorithm *algor);
-extern Token mmseg_next_token(rmmseg::Algorithm *algor);
+namespace rmmseg
+{
+    namespace dict
+    {
+        bool  load_chars(const char *filename);
+        bool  load_words(const char *filename);
+    }
+
+    class Algorithm
+    {
+    public:
+        Algorithm(const char *text, int length);
+        %extend {
+            PyObject *next_token() {
+                PyObject *resultobj = 0;
+                rmmseg::Token token = $self->next_token();
+                resultobj = PyString_FromStringAndSize((&token)->text, (&token)->length);
+                return resultobj;
+            }
+        }
+    };
+}

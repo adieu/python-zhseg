@@ -24,7 +24,6 @@ setup(
                 "mmseg-cpp/algor.cpp",
                 "mmseg-cpp/dict.cpp",
                 "mmseg-cpp/memory.cpp",
-                "mmseg-cpp/mmseg.cpp",
                 "zhseg/_mmseg.cpp"
             ])
     ],
