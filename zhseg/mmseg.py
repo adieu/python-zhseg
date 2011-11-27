@@ -8,7 +8,7 @@ DEFAULT_WORDS_DICT = os.path.join(os.path.dirname(__file__), 'data', 'words.dic'
 
 class Algorithm(object):
     """
-    The algorithm class holds the text to be segmented and returns the token iterier.
+    The algorithm class holds the text to be segmented and returns the token iterator.
     """
     def __init__(self, text):
         self.text = text 
